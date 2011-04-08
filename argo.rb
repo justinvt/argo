@@ -71,32 +71,23 @@ end
 
 @object.argon do |s|
 
-  s.node :to_a
+  s.boy :to_a
 
   wimp do
     s[:id]
   end
 
   putz do
-
     fuck do
-
       pip do
-
-        dip do
-
-          9999
-
+        cord do
+          s[:cord]
         end
-
       end
-
     end
-
     suck do
       44
     end
-
   end
 
 end
