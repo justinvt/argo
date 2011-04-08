@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'json'
+#require 'xml'
 require 'logger'
 
 Log = Logger.new(STDOUT)
@@ -15,16 +16,23 @@ class Argon
 
 end
 
-
 class Object
 
-  attr_accessor :capt, :level
+  attr_accessor :capt, :level, :format
 
   def argon(&block)
     @object = self
     @capt ||= {}
     block{ yield(@object) }
-    puts @capt.to_json
+    @format = :json
+    @capt
+  end
+
+  def render
+    case format.to_sym
+      when :json : @capt.to_json
+      when :xml : @capt.to_xml
+    end
   end
 
   def block(key=nil)
@@ -43,9 +51,9 @@ class Object
     compounded = ""
     hash_accessors.each do |h|
       compounded << h
-      eval("@capt#{compounded} ||= {}") unless $keys.empty?
+      instance_eval("@capt#{compounded} ||= {}") unless $keys.empty?
     end
-    eval("@capt#{hash_accessors.join}=val if (@capt#{hash_accessors.join} == {} || @capt#{hash_accessors.join} == nil)") unless @capt.keys.include?(method.to_sym)
+    instance_eval("@capt#{hash_accessors.join}=val if (@capt#{hash_accessors.join} == {} || @capt#{hash_accessors.join} == nil)") unless @capt.keys.include?(method.to_sym)
   end
 
   def add_node(node_name, value, &block)
@@ -60,35 +68,45 @@ class Object
     return self[method] || self.send(method.to_sym) rescue self.send(method.to_sym)
   end
 
-  def node(method, options={})
+  def add(method, options={})
     value =  get_val(method)
     add_node(method, value )
   end
 
 end
 
+@hey = "soap"
 @object = {:thing => "stuff", :id => 99, :cord => {:blood => "death"}}
+@s = Time.now
 
-@object.argon do |s|
+100.times do |i|
+  @object.argon do |s|
 
-  s.boy :to_a
+    s.add :to_a
 
-  wimp do
-    s[:id]
-  end
+    wimp do
+      @hey
+    end
 
-  putz do
-    fuck do
-      pip do
-        cord do
-          s[:cord]
+    putz do
+      fuck do
+        pip do
+          cord do
+            s[:cord]
+          end
         end
       end
+      suck do
+        44
+      end
     end
-    suck do
-      44
-    end
+
   end
+
+  puts @object.render
 
 end
 
+@f = Time.now
+
+puts "Time was #{@f - @s}"
