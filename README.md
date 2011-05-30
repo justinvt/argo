@@ -65,7 +65,7 @@ This should output the following json:
 {
 	friends_count: 123,
 	inbox_count: 3343,
-	karma-esque-thing: 4192
+	karma-esque-thing: 4192,
 	
 	stats: {
 		first_name: Justin,
