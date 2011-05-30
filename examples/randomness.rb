@@ -1,7 +1,8 @@
-
+require "argo.rb"
 
 ### ASSUME WE ARE STARTING WITH AN OBJECT CALLED @object ###
 ### WHICH IS REALLY JUST A HASH, DEFINED AS SUCH....     ###
+
 @object = {
   :type => "hat", 
   :description => "one of those stupid fedoras", 
@@ -17,9 +18,6 @@
 
 ### This is how we'd use argon to pluck out and rearrange whatever
 ### aspects of @object we want to present to the consumers of our API
-
-
-require "argo.rb"
 
 @object.argon do |s|
   
@@ -67,4 +65,4 @@ require "argo.rb"
 
 end
 
-puts @object.to_format(true)
+puts @object.to_format(true) # passing 'true' to to_format prettifies the output

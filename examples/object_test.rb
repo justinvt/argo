@@ -1,11 +1,8 @@
 require "argo.rb"
 
-
 @time = Time.now
 
-
 @time.argon do |s|
-
   
   s.add_attributes :day, :month, :year
    
@@ -21,10 +18,6 @@ require "argo.rb"
     
   end
   
-  
-
-  
- 
 end
 
 puts @time.to_format(true)

@@ -1,29 +1,9 @@
 require 'rubygems'
 require 'json'
 
-
-# Here for posterity - no, i might go back and refactor
-=begin
-class Argon
-
-  def initialize(object, &block)
-    @object = object
-    yield(@object)
-  end
-
-end
-=end
-
-
-
-
 class Object
   
   $capt = {}
-  
-  def logs(method_name)
-    puts "Running #{method_name.to_s} - $capt = #{$capt.inspect} / @format - #{@format.inspect}"
-  end
 
   attr_accessor  :level, :format
 
